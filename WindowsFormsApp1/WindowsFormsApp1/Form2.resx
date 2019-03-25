@@ -141,7 +141,7 @@ In case the "for id" field is filled, actions will be performed only for order r
 The data listed in the table can be sorted by clicking on the appropriate column name.
 
 To save the generated report (currently displayed table or reports from the "Report Details" section), click the "Save report table to .csv" or "Save report details to .csv" button respectively.
-After clicking on any of the buttons, a dialog will open in which we will define how to name and where to save our file. In case of success or failure, the user will receive an appropriate message.
+After clicking on any of the buttons, a dialog will open in which user define how to name and where to save our file. In case of success or failure, the user will receive an appropriate message.
 
 In the case of generating a report displaying a report to the "Report details" section, the table will display a list of all orders/components of orders.</value>
   </data>

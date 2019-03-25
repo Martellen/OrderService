@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
-using static WindowsFormsApp1.ReadFile;
 
 namespace WindowsFormsApp1
 {
@@ -37,8 +32,7 @@ namespace WindowsFormsApp1
         private void NumberOfOrdersClick(object sender, EventArgs e)
         {
             LoadAllDataGridVievData(dataGridView1, database);
-            //RaportFunctions.NumberOfOrders(numberOfOrdersIdInput, numberOfOrdersLabel, dataGridView1);
-            RaportFunctions.NumberOfOrdersV2(numberOfOrdersIdInput, numberOfOrdersLabel, dataGridView1);
+            RaportFunctions.NumberOfOrders(numberOfOrdersIdInput, numberOfOrdersLabel, dataGridView1);
         }
 
 
@@ -59,8 +53,7 @@ namespace WindowsFormsApp1
         private void AverageValueOfOrdersClick(object sender, EventArgs e)
         {
             LoadAllDataGridVievData(dataGridView1, database);
-            //RaportFunctions.AvarageValueOfOrders(averageValueOfOrdersIdInput, averageValueOfOrdersLabel, dataGridView1);
-            RaportFunctions.AvarageValueOfOrdersV2(averageValueOfOrdersIdInput, averageValueOfOrdersLabel, dataGridView1);
+            RaportFunctions.AvarageValueOfOrders(averageValueOfOrdersIdInput, averageValueOfOrdersLabel, dataGridView1);
         }
 
 
@@ -74,8 +67,7 @@ namespace WindowsFormsApp1
         private void OrdersInRangeClick(object sender, EventArgs e)
         {
             LoadAllDataGridVievData(dataGridView1, database);
-            //RaportFunctions.OrdersInRange(numericUpDown6, numericUpDown7, dataGridView1);
-            RaportFunctions.OrdersInRangeV2(numericUpDown6, numericUpDown7, dataGridView1);
+            RaportFunctions.OrdersInRange(numericUpDown6, numericUpDown7, dataGridView1);
         }
 
 

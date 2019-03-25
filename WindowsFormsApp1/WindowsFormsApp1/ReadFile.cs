@@ -6,7 +6,6 @@ using System.Xml;
 using Newtonsoft.Json;
 using System.Data;
 using System.Windows.Forms;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
@@ -69,11 +68,12 @@ namespace WindowsFormsApp1
         {
             {
                 XmlDocument doc = new XmlDocument();
-
                 XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
 
-                doc.Load(fileName);
-                // NIE CZYTA POLSKICH ZNAKOW - INVALID CHAR !!!
+                try
+                {
+                    doc.Load(fileName);
+                
 
                 foreach (XmlNode node in doc.DocumentElement.ChildNodes)
                 {
@@ -109,6 +109,11 @@ namespace WindowsFormsApp1
                         MessageBox.Show(e.Message + " At node: " + node.InnerText + "\n\n" + "The record will be skipped");
                     }
 
+                }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n\nFile wont't be loaded");
                 }
 
             }
@@ -181,7 +186,7 @@ namespace WindowsFormsApp1
             public int quantity { get; set; }
 
             [Required(ErrorMessage = "requestId field is required")]
-            [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "price field needs to be decimal")]
+            [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "price field needs to be decimal, precision 2")]
             public double price { get; set; }
         }
 

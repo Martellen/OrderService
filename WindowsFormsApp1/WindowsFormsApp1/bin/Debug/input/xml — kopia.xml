@@ -1,20 +1,27 @@
 <requests>
 	<request>
-		<clientId>1cccccc</clientId>
+		<clientId>1</clientId>
 		<requestId>1</requestId>
-		<name>Bulka</name>
+		<name>³¹¿</name>
 		<quantity>1</quantity>
 		<price>10.00</price>
 	</request>
 	<request>
 		<clientId>1</clientId>
+		<requestId>1</requestId>
+		<name>Cos</name>
+		<quantity>1</quantity>
+		<price>12.333</price>
+	</request>
+	<request>
+		<clientId>cl</clientId>
 		<requestId>2</requestId>
 		<name>Chleb</name>
 		<quantity>2</quantity>
 		<price>15.00</price>
 	</request>
 	<request>
-		<clientId>1</clientId>
+		<clientId>c³</clientId>
 		<requestId>2</requestId>
 		<name>Chleb</name>
 		<quantity>5</quantity>
@@ -25,6 +32,6 @@
 		<requestId>1</requestId>
 		<name>Chleb</name>
 		<quantity>1</quantity>
-		<price>10,00</price>
+		<price>10.00</price>
 	</request>
 </requests>

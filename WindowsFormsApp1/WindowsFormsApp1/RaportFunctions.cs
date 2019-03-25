@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static WindowsFormsApp1.ReadFile;
 
@@ -12,30 +10,6 @@ namespace WindowsFormsApp1
     class RaportFunctions
     {
         internal static void NumberOfOrders(TextBox textBox, Label raportDetailsLabel, DataGridView dataGridView)
-        {
-            string clientId = textBox.Text;
-
-            if (clientId == "")
-            {
-                raportDetailsLabel.Text = "Total request count: " + dataGridView.Rows.Count;
-            }
-            else
-            {
-                int count = 0;
-                foreach (DataGridViewRow row in dataGridView.Rows)
-                {
-                    string cellClientIdValue = row.Cells["clientIdColumn"].Value.ToString();
-
-                    if (cellClientIdValue == clientId)
-                    {
-                        count++;
-                    }
-                }
-                raportDetailsLabel.Text = "Total request count for client Id " + clientId + " is: " + count;
-            }
-        }
-
-        internal static void NumberOfOrdersV2(TextBox textBox, Label raportDetailsLabel, DataGridView dataGridView)
         {
             string clientId = textBox.Text;
 
@@ -59,7 +33,8 @@ namespace WindowsFormsApp1
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
-                    count += cellValue;
+                    int quantity = Convert.ToInt32(row.Cells["quantityColumn"].Value);
+                    count += (cellValue * quantity);
                 }
                 raportDetailsLabel.Text = "Total value of requests is: " + count;
             }
@@ -69,11 +44,12 @@ namespace WindowsFormsApp1
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     string cellClientIdValue = row.Cells["clientIdColumn"].Value.ToString();
-                    double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
 
                     if (cellClientIdValue == clientId)
                     {
-                        count += cellValue;
+                        double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
+                        int quantity = Convert.ToInt32(row.Cells["quantityColumn"].Value);
+                        count += (cellValue * quantity);
                     }
                 }
                 raportDetailsLabel.Text = "Total price of requests for client Id " + clientId + " is: " + count;
@@ -111,42 +87,8 @@ namespace WindowsFormsApp1
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
-                    count += cellValue;
-                }
-                count = count / dataGridView.RowCount;
-                raportDetailsLabel.Text = "Avarage value of order is: " + Math.Round(count, 2);
-            }
-            else
-            {
-                double count = 0;
-                int iterationCount = 0;
-                foreach (DataGridViewRow row in dataGridView.Rows)
-                {
-                    string cellClientIdValue = row.Cells["clientIdColumn"].Value.ToString();
-                    double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
-
-                    if (cellClientIdValue == clientId)
-                    {
-                        count += cellValue;
-                        iterationCount++;
-                    }
-                }
-                count = count / iterationCount;
-                raportDetailsLabel.Text = "Avarage value of order for client Id " + clientId + " is: " + Math.Round(count, 2);
-            }
-        }
-
-        internal static void AvarageValueOfOrdersV2(TextBox textBox, Label raportDetailsLabel, DataGridView dataGridView)
-        {
-            string clientId = textBox.Text;
-
-            if (clientId == "")
-            {
-                double count = 0;
-                foreach (DataGridViewRow row in dataGridView.Rows)
-                {
-                    double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
-                    count += cellValue;
+                    int quantity = Convert.ToInt32(row.Cells["quantityColumn"].Value);
+                    count += (cellValue * quantity);
                 }
                 count = count / CountNoumberOfOrders(dataGridView);
                 raportDetailsLabel.Text = "Avarage value of order is: " + Math.Round(count, 2);
@@ -159,7 +101,8 @@ namespace WindowsFormsApp1
                     if (clientId == row.Cells["clientIdColumn"].Value.ToString())
                     {
                         double cellValue = Convert.ToDouble(row.Cells["priceColumn"].Value);
-                        count += cellValue;
+                        int quantity = Convert.ToInt32(row.Cells["quantityColumn"].Value);
+                        count += (cellValue * quantity);
                     }
                 }
                 count = count / CountNoumberOfOrders(dataGridView, clientId);
@@ -267,28 +210,6 @@ namespace WindowsFormsApp1
 
         internal static void OrdersInRange(NumericUpDown numericUpDownMin, NumericUpDown numericUpDownMax, DataGridView dataGridView)
         {
-            double minValue = Convert.ToDouble(numericUpDownMin.Value);
-            double maxValue = Convert.ToDouble(numericUpDownMax.Value);
-
-            if (minValue != 0 && maxValue != 0)
-            {
-                for (int i = 0; i < dataGridView.Rows.Count; i++)
-                {
-                    double cellValue = Convert.ToDouble(dataGridView.Rows[i].Cells["priceColumn"].Value);
-
-                    if (cellValue < minValue || cellValue > maxValue)
-                    {
-                        dataGridView.Rows.RemoveAt(dataGridView.Rows[i].Index);
-                        i--;
-                    }
-
-                }
-                dataGridView.Refresh();
-            }
-        }
-
-        internal static void OrdersInRangeV2(NumericUpDown numericUpDownMin, NumericUpDown numericUpDownMax, DataGridView dataGridView)
-        {
             List<string> clientIdList = new List<string>();
             List<long> requestIdList = new List<long>();
             List<double> priceList = new List<double>();
@@ -311,7 +232,7 @@ namespace WindowsFormsApp1
                     {
                         if (clientIdList[j] == Convert.ToString(dataGridView.Rows[i].Cells["clientIdColumn"].Value) && requestIdList[j] == Convert.ToInt64(dataGridView.Rows[i].Cells["requestIdColumn"].Value))
                         {
-                            priceList[j] += Convert.ToDouble(dataGridView.Rows[i].Cells["priceColumn"].Value);
+                            priceList[j] += (Convert.ToDouble(dataGridView.Rows[i].Cells["priceColumn"].Value) * Convert.ToInt32(dataGridView.Rows[i].Cells["quantityColumn"].Value));
                         }
                         if (clientIdList.Contains(Convert.ToString(dataGridView.Rows[i].Cells["clientIdColumn"].Value)))
                         {
@@ -448,7 +369,7 @@ namespace WindowsFormsApp1
                 try
                 {
                     System.IO.File.WriteAllLines(saveFileDialog.FileName, output, System.Text.Encoding.UTF8);
-                    MessageBox.Show("Succes! \n\n Your file has been saved.");
+                    MessageBox.Show("Succes!\n\n Your file has been saved.");
                 }
                 catch (Exception e)
                 {
@@ -471,7 +392,7 @@ namespace WindowsFormsApp1
                 try
                 {
                     System.IO.File.WriteAllLines(saveFileDialog.FileName, output, System.Text.Encoding.UTF8);
-                    MessageBox.Show("Succes! \n\n Your file has been saved.");
+                    MessageBox.Show("Succes!\n\n Your file has been saved.");
                 }
                 catch (Exception e)
                 {
